@@ -1,0 +1,8 @@
+#Don't sync node modules or next build.
+node_modules/
+.next/
+
+#Do not sync VS settings
+.vs/
+.vscode/
+*.code-workspace
