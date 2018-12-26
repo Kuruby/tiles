@@ -1,19 +1,9 @@
 import React from 'react'
+import { GameStateContext } from '../lib/game_state';
 
 class Tile extends React.Component {
     constructor(props) {
-        super(props)
-        
-        this.player = this.props.p
-
-        this.tile = this.props.tile || {};
-        if(typeof this.tile == "string")
-        {
-            this.tile = {r:this.tile}
-        }
-        this.tile.c = this.tile.c || "black"
-        this.tile.t = this.tile.t || "white"
-        this.tile.b = this.tile.b || "silver"
+        super(props)   
     }
 
     onClick = () => {
@@ -26,6 +16,21 @@ class Tile extends React.Component {
     }
 
     render() {
+
+        let context = this.context
+
+
+        this.player = context.player
+        
+
+        this.tile = context.tiles.get(this.props.l.y).get(this.props.l.x)
+        if(typeof this.tile == "string")
+        {
+            this.tile = {r:this.tile}
+        }
+        this.tile.c = this.tile.c || "black"
+        this.tile.t = this.tile.t || "white"
+        this.tile.b = this.tile.b || "silver"
         var tile = this.tile
 
         return (
@@ -58,5 +63,7 @@ class Tile extends React.Component {
         )
     }
 }
+
+Tile.contextType = GameStateContext
 
 export default Tile

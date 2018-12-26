@@ -1,29 +1,34 @@
 import React from 'react'
 import Tile from './tile'
 import Player from './player'
+import { GameStateContext } from '../lib/game_state'
+
+
 
 class Game extends React.Component {
+    
     constructor(props) {
-        super()
+        super(props)
     }
 
-
     render() {
+        let context = this.context
 
-        var tiles = this.props.gameState.tiles
+        var tiles = context.tiles
         var gridHeight = tiles.size
         var gridWidth = tiles.get(0).size
-        var player = this.props.gameState.player
+        var player = context.player
         return (
+
             <tilegrid className={player.movementPending ? "selecting" : ""}>
                 {tiles.map((row, i) => (
                     row.map((tile, j) => (
                         <tile key={`${i}/${j}`} style={{ gridColumn: j + 1, gridRow: i + 1 }}>
-                            <Tile tile={tile} p={player} fo={()=>this.forceUpdate()} l={{x:j,y:i}}/>
+                            <Tile tile={tile} fo={() => this.forceUpdate()} l={{ x: j, y: i }} />
                         </tile>
                     ))
-                ))}
-                <Player p={player} fo={()=>this.forceUpdate()} />
+                    ))}
+                <Player fo={() => this.forceUpdate()} />
                 <style jsx>
                     {`
                 tilegrid
@@ -40,8 +45,11 @@ class Game extends React.Component {
                 
                     `}
                 </style>
-            </tilegrid>)
+            </tilegrid>
+        )
     }
 }
+
+Game.contextType = GameStateContext
 
 export default Game

@@ -1,24 +1,25 @@
 import React from 'react'
+import { GameStateContext } from '../lib/game_state';
 
 class Player extends React.Component {
     constructor(props) {
         super(props)
-
-        
-        this.player=props.p
-
     }
     onClick = () => {
-        this.player.movementPending=!this.player.movementPending;
+        this.player.movementPending = !this.player.movementPending;
         this.props.fo()
     }
 
+    
+
     render() {
+        let context = this.context
+        this.player=context.player
         var l = this.player.l
         var r = this.player.r
         return (
             <player onClick={this.onClick}>
-                <div  className={this.player.movementPending ? "selected" : ""}>
+                <div className={this.player.movementPending ? "selected" : ""}>
                     {r}
                 </div>
                 <style jsx>
@@ -37,6 +38,7 @@ class Player extends React.Component {
                         text-align:center;
                         font-size:75px;
                         user-select:none;
+                        color:${this.player.color};
                     }
                     player{
                         grid-column:${l.x + 1};
@@ -45,5 +47,7 @@ class Player extends React.Component {
             </player>)
     }
 }
+
+Player.contextType = GameStateContext
 
 export default Player
