@@ -16,7 +16,10 @@ class Tile extends React.Component {
 
     onMouseLeave = ()=>
     {
-        console.log("exit")
+        if(this.player.pendingMovement)
+        {
+            console.log("Should recalculate path/etc now")
+        }
     }
 
     render() {

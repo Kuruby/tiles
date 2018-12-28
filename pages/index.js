@@ -1,12 +1,14 @@
 import Game from '../components/game'
-import {List} from 'immutable'
+import { List } from 'immutable'
 import { GameStateContext, GameStateDefault } from '../lib/game_state'
+import BackgroundColorate from '../lib/background_colorate'
 class Page extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = GameStateDefault
     }
     render() {
+        var gradientColors = BackgroundColorate(this.state.backgroundColor)
         return (
             <div>
                 <GameStateContext.Provider value={this.state}>
@@ -20,7 +22,8 @@ class Page extends React.Component {
                     right:0;
                     top:0;
                     bottom:0;
-                    background:radial-gradient(black,#0A0A0A,#040404,black)
+                    background:radial-gradient(${gradientColors.main},${gradientColors.tertiary},
+                        ${gradientColors.secondary},${gradientColors.main})
                 }`}
                 </style>
             </div>)
