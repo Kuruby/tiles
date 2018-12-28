@@ -8,7 +8,7 @@ class Tile extends React.Component {
 
     onClick = () => {
         if (this.player.movementPending) {
-            this.player.l = this.props.l;
+            this.player.location = this.props.l;
             this.player.movementPending = false;
             this.props.fo();
         }
