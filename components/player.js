@@ -15,12 +15,12 @@ class Player extends React.Component {
     render() {
         let context = this.context
         this.player=context.player
-        var l = this.player.l
-        var r = this.player.r
+        var location = this.player.location
+        var renderCharacter = this.player.renderCharacter
         return (
             <player onClick={this.onClick}>
                 <div className={this.player.movementPending ? "selected" : ""}>
-                    {r}
+                    {renderCharacter}
                 </div>
                 <style jsx>
                     {`
@@ -41,8 +41,8 @@ class Player extends React.Component {
                         color:${this.player.color};
                     }
                     player{
-                        grid-column:${l.x + 1};
-                        grid-row:${l.y + 1};
+                        grid-column:${location.x + 1};
+                        grid-row:${location.y + 1};
                     }`}</style>
             </player>)
     }

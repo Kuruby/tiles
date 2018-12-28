@@ -14,6 +14,11 @@ class Tile extends React.Component {
         }
     }
 
+    onMouseLeave = ()=>
+    {
+        console.log("exit")
+    }
+
     render() {
 
         let context = this.context
@@ -22,16 +27,12 @@ class Tile extends React.Component {
 
         var l = this.props.l
 
-        console.log(l)
         this.tile = context.tiles.get(l.x).get(l.y)
         var tile = this.tile
 
         return (
-            /*<tile key={`@(${x},${y})`} style={{ gridColumn: x + 1, gridRow: y + 1 }}>
-                            <Tile tile={tile} fo={() => this.forceUpdate()} l={{ x: x, y: y }} />
-                        </tile>*/
             <tile>
-                <div onClick={this.onClick}>
+                <div onClick={this.onClick} onMouseLeave={this.onMouseLeave}>
                     {tile.renderCharacter}
                 </div>
                 <style jsx>
