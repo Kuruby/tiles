@@ -5,21 +5,27 @@ class Player extends React.Component {
     constructor(props) {
         super(props)
     }
+
     onClick = () => {
-        this.player.movementPending = !this.player.movementPending;
-        this.props.fo()
+        if (this.player.pendingMovement) {
+            delete this.player.pendingMovement
+        }
+        else {
+            this.player.pendingMovement = Object.assign({}, this.player.location)
+        }
+        this.context.fo()
     }
 
-    
 
     render() {
         let context = this.context
-        this.player=context.player
+        this.player = context.player
+
         var location = this.player.location
         var renderCharacter = this.player.renderCharacter
         return (
             <player onClick={this.onClick}>
-                <div className={this.player.movementPending ? "selected" : ""}>
+                <div className={this.player.pendingMovement ? "selected" : ""}>
                     {renderCharacter}
                 </div>
                 <style jsx>

@@ -1,7 +1,6 @@
 import Game from '../components/game'
-import { List } from 'immutable'
 import { GameStateContext, GameStateDefault } from '../lib/game_state'
-import BackgroundColorate from '../lib/background_colorate'
+import BackgroundColorate from '../lib/utlities/background_colorate'
 class Page extends React.Component {
     constructor(props) {
         super(props)

@@ -6,28 +6,29 @@ import { GameStateContext } from '../lib/game_state'
 
 
 class Game extends React.Component {
-    
+
     constructor(props) {
         super(props)
     }
 
     render() {
         let context = this.context
+        this.context.fo = () => this.forceUpdate()
 
         var tiles = context.tiles
         var gridWidth = tiles.size
         var gridHeight = tiles.get(0).size
-        
+
         var player = context.player
         return (
 
-            <tilegrid className={player.movementPending ? "selecting" : ""}>
+            <tilegrid className={player.pendingMovement ? "selecting" : ""}>
                 {tiles.map((row, x) => (
                     row.map((tile, y) => (
-                        <Tile key={`@(${x},${y})`} fo={() => this.forceUpdate()} l={{ x: x, y: y }} />
+                        <Tile key={`@(${x},${y})`} l={{ x: x, y: y }} />
                     ))
-                    ))}
-                <Player fo={() => this.forceUpdate()} />
+                ))}
+                <Player />
                 <style jsx>
                     {`
                 tilegrid

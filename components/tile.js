@@ -7,10 +7,10 @@ class Tile extends React.Component {
     }
 
     onClick = () => {
-        if (this.player.movementPending) {
-            this.player.location = this.props.l;
-            this.player.movementPending = false;
-            this.props.fo();
+        if (this.player.pendingMovement) {
+            this.player.location = this.props.l
+            delete this.player.pendingMovement
+            this.context.fo()
         }
     }
 
@@ -18,7 +18,8 @@ class Tile extends React.Component {
     {
         if(this.player.pendingMovement)
         {
-            console.log("Should recalculate path/etc now")
+            this.player.pendingMovement = "nowhere"
+            //this.player.pathfinding.release()
         }
     }
 
@@ -28,9 +29,9 @@ class Tile extends React.Component {
 
         this.player = context.player
 
-        var l = this.props.l
+        var location = this.props.l
 
-        this.tile = context.tiles.get(l.x).get(l.y)
+        this.tile = context.tiles.get(location.x).get(location.y)
         var tile = this.tile
 
         return (
@@ -41,8 +42,8 @@ class Tile extends React.Component {
                 <style jsx>
                     {`
                     tile{
-                        grid-column: ${l.x + 1};
-                        grid-row: ${l.y + 1}
+                        grid-column: ${location.x + 1};
+                        grid-row: ${location.y + 1}
                     }
                     div{
                         width:100px;
