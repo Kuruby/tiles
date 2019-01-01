@@ -1,5 +1,5 @@
 import React from 'react'
-import { GameStateContext } from '../lib/game_state';
+import { GameStateContext, GameStateDefault } from '../lib/game_state';
 
 class Player extends React.Component {
     constructor(props) {
@@ -17,7 +17,9 @@ class Player extends React.Component {
     }
 
 
+
     render() {
+        this.context = GameStateDefault
         let context = this.context
         this.player = context.player
 
