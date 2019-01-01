@@ -8,10 +8,10 @@ class Player extends React.Component {
 
     onClick = () => {
         if (this.player.pendingMovement) {
-            delete this.player.pendingMovement
+            this.player.pathfinding.end(this.player)
         }
         else {
-            this.player.pendingMovement = Object.assign({}, this.player.location)
+            this.player.pathfinding.begin(this.player)
         }
         this.context.fo()
     }

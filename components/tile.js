@@ -8,16 +8,14 @@ class Tile extends React.Component {
 
     onClick = () => {
         if (this.player.pendingMovement) {
-            this.player.location = this.props.l
-            delete this.player.pendingMovement
+            this.player.pathfinding.target(this.player, this.props.l)
+            this.player.pathfinding.complete(this.player)
             this.context.fo()
         }
     }
 
-    onMouseLeave = ()=>
-    {
-        if(this.player.pendingMovement)
-        {
+    onMouseLeave = () => {
+        if (this.player.pendingMovement) {
             this.player.pendingMovement = "nowhere"
             //this.player.pathfinding.release()
         }
