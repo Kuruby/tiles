@@ -2,23 +2,33 @@ import React from 'react'
 import { GameStateContext } from '../lib/game_state';
 
 class Tile extends React.Component {
-    constructor(props) {
-        super(props)
+    state = {
+        targeted: false
     }
 
     onClick = () => {
         if (this.player.pendingMovement) {
-            this.player.pathfinding.target(this.player, this.props.l)
             this.player.pathfinding.complete(this.player)
+            this.setState({ targeted: false })
             this.context.fo()
         }
     }
 
+    onMouseEnter = () => {
+        if (this.player.pendingMovement) {
+            this.player.pathfinding.target(this.player, this.props.l)
+            this.setState({ targeted: true })
+            this.context.fo()
+        }
+
+    }
+
     onMouseLeave = () => {
         if (this.player.pendingMovement) {
-            this.player.pendingMovement = "nowhere"
-            //this.player.pathfinding.release()
+            this.player.pathfinding.release(this.player)
+            this.setState({ targeted: false })
         }
+
     }
 
     render() {
@@ -32,9 +42,14 @@ class Tile extends React.Component {
         this.tile = context.tiles.get(location.x).get(location.y)
         var tile = this.tile
 
+        var className = this.state.targeted ? "target" : ""
+            || this.player.pathfinding.isInPath(this.player,
+                { location: location }) ? "intermediate" : ""
+
         return (
             <tile>
-                <div onClick={this.onClick} onMouseLeave={this.onMouseLeave}>
+                <div onClick={this.onClick} onMouseLeave={this.onMouseLeave}
+                    onMouseEnter={this.onMouseEnter} className={className}>
                     {tile.renderCharacter}
                 </div>
                 <style jsx>
@@ -54,14 +69,15 @@ class Tile extends React.Component {
                         color:${tile.textColor};
                         background-color:${tile.backgroundColor};
                     }
-                `}
-                </style>
-                <style>
-                    {`
-                    .selecting div:hover{
+                    .target{
                         border-color:purple;
-                        background-color:light-purple;
-                    }`}
+                        background-color:hotpink;
+                    }
+                    .intermediate{
+                        background-color:mediumpurple;
+                        border-color:#f0f0f0;
+                    }
+                `}
                 </style>
             </tile>
         )

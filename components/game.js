@@ -4,7 +4,6 @@ import Player from './player'
 import { GameStateContext } from '../lib/game_state'
 
 
-
 class Game extends React.Component {
 
     constructor(props) {
@@ -22,7 +21,7 @@ class Game extends React.Component {
         var player = context.player
         return (
 
-            <tilegrid className={player.pendingMovement ? "selecting" : ""}>
+            <tilegrid>
                 {tiles.map((row, x) => (
                     row.map((tile, y) => (
                         <Tile key={`@(${x},${y})`} l={{ x: x, y: y }} />
